@@ -16,5 +16,5 @@ Then The page url should be "<url>"
 
 Examples:
     | link name  |url |
-    | Selenium WebDriver |  http://www.seleniumhq.org/projects/webdriver/  |
-    |  Selenium Remote Control |  http://www.seleniumhq.org/projects/remote-control/   |
+    |Selenium WebDriver |  http://www.seleniumhq.org/projects/webdriver/  |
+    |Selenium Remote Control |  http://www.seleniumhq.org/projects/remote-control/   |
