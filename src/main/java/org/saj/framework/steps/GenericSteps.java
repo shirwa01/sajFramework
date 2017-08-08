@@ -54,23 +54,6 @@ public class GenericSteps
 		utils.waitForElement(element);
 	}
 
-	@Then("^I press SRM button \"([^\"]*)\"$")
-	public void i_press_SRM_button(String element) throws Throwable 
-	{
-		WebElement ele = utils.getElement(element);
-		if(ele != null)
-		{
-			utils.clickButton(ele);
-		}
-		else
-		{
-			if(LOGGER.isInfoEnabled())
-			{
-				LOGGER.info("Button " + element + " does not exisit on page: " + utils.getCurrentUrl());
-			}	
-		}	
-	}
-
 	@Then("^I fill in \"([^\"]*)\" with \"([^\"]*)\"$")
 	public void i_fill_in_with(String element, String value) throws Throwable 
 	{
@@ -112,11 +95,11 @@ public class GenericSteps
 		utils.waitForSeconds(2);
 	}
 
-	@Then("^I fill in SRM field \"([^\"]*)\" with \"([^\"]*)\"$")
-	public void i_fill_in_SRM_field_with(String srmFieldName, String value) throws Throwable 
+	@Then("^I fill in field \"([^\"]*)\" with \"([^\"]*)\"$")
+	public void i_fill_in_field_with(String locator, String value) throws Throwable 
 	{
 		
-		utils.fillSRMFieldWith(srmFieldName,value);
+		utils.fillFieldWith(locator,value);
 	}
 
 	@Then("^I press button \"([^\"]*)\"$")
@@ -136,14 +119,14 @@ public class GenericSteps
 		}	
 	}
 
-	@Then("^I should see \"([^\"]*)\" on the SRM page$")
-	public void i_should_see_on_the_SRM_page(String value) throws Throwable 
+	@Then("^I should see \"([^\"]*)\" on the page$")
+	public void i_should_see_on_the_page(String value) throws Throwable 
 	{
 		Assert.assertTrue(utils.verifyTextExistsOnPage(value));
 	}
 	
-	@Then("^I should see \"([^\"]*)\" link on the SRM page$")
-	public void i_should_see_link_on_the_SRM_page(String linkText) throws Throwable 
+	@Then("^I should see \"([^\"]*)\" link on the page$")
+	public void i_should_see_link_on_the_page(String linkText) throws Throwable 
 	{
 		Assert.assertTrue(utils.verifyLinkExistsOnPage(linkText));
 	}
@@ -162,53 +145,31 @@ public class GenericSteps
 		utils.clickOnEelmentUsingXpath(xpathLocator);
 	}
 
-	@When("^I add multiple record value by clicking \"([^\"]*)\" button:$")
-	public void i_add_multiple_record_value_by_clicking_button(String appletName, DataTable testData) throws Throwable 
-	{
-		utils.addMultipleRecordsToApplet(appletName, testData);
-	}
-
 	@When("^I save the record for \"([^\"]*)\" applet$")
 	public void i_save_the_record_for_applet(String appletName) throws Throwable 
 	{
 		utils.saveTheAppletRecord(appletName);
 	}
 	
-	@Then("^SRM field \"([^\"]*)\" attribute \"([^\"]*)\" should contain \"([^\"]*)\"$")
-	public void srm_field_attribute_should_contain(String element, String attribute, String value) throws Throwable 
+	@Then("^Field \"([^\"]*)\" attribute \"([^\"]*)\" should contain \"([^\"]*)\"$")
+	public void field_attribute_should_contain(String element, String attribute, String value) throws Throwable 
 	{
 		Assert.assertTrue(utils.verifyElementHasSpecifiedAttributeValue(element,attribute,value));
 	}
 
-	@Then("^I Should not be able to delete \"([^\"]*)\"$")
+	/*@Then("^I Should not be able to delete \"([^\"]*)\"$")
 	public void i_Should_not_be_able_to_delete(String appletName) throws Throwable 
 	{
 		Assert.assertTrue(utils.verifyDeleteOptionIsDisabledFor(appletName));
-	}
+	}*/
 
-	@When("^I select \"([^\"]*)\" from SRM list \"([^\"]*)\"$")
-	public void i_select_from_SRM_list(String appletName, String menuTitle) throws Throwable 
+	@When("^I select \"([^\"]*)\" from list \"([^\"]*)\"$")
+	public void i_select_from_list(String appletName, String menuTitle) throws Throwable 
 	{
-		switch (menuTitle.toLowerCase()) 
-		{
-			case "third level view bar":
-				utils.selectAppletFromThirdLevelMenu(appletName);
-				break;
-	
-			case "second level view bar":
-				utils.selectLinkFromSecondLevelMenu(appletName);
-				break;
-		}
+		utils.selectAppletFromMenu(menuTitle, appletName);
 	}
 
 	
-
-	@Then("^delete button for \"([^\"]*)\" should be disabled$")
-	public void delete_button_for_should_be_disabled(String appletName) throws Throwable 
-	{
-		Assert.assertTrue(utils.verifyDeleteButtonIsDisabledFor(appletName));
-	}
-
 	@When("^I click link \"([^\"]*)\" from menu \"([^\"]*)\"$")
 	public void i_click_link_from_menu(String action, String menuOption) throws Throwable 
 	{
@@ -221,11 +182,11 @@ public class GenericSteps
 		Assert.assertTrue(utils.verifyFieldHasValue(fieldName,expectedValue));
 	}
 	
-	@Then("^verify delete menu option is enabled for \"([^\"]*)\"$")
+/*	@Then("^verify delete menu option is enabled for \"([^\"]*)\"$")
 	public void verify_delete_menu_option_is_enabled_for(String appletName) throws Throwable 
 	{
 		Assert.assertFalse(utils.verifyDeleteButtonIsDisabledFor(appletName));
-	}
+	}*/
 
 	@Then("^I validate multiple record attribute \"([^\"]*)\" value:$")
 	public void i_validate_multiple_record_attribute_value(String attributeName, DataTable testData) throws Throwable 
@@ -233,10 +194,10 @@ public class GenericSteps
 		Assert.assertTrue(utils.verfiAllFieldsHasExpectedValueForAttribute(attributeName,testData));
 	}
 	
-	@When("^I fill in SRM field \"([^\"]*)\" with stored \"([^\"]*)\"$")
-	public void i_fill_in_SRM_field_with_stored(String fieldName, String fileName) throws Throwable 
+	@When("^I fill in field \"([^\"]*)\" with stored \"([^\"]*)\"$")
+	public void i_fill_in_field_with_stored(String fieldName, String fileName) throws Throwable 
 	{
-		utils.fillSRMFieldWithStoredValue(fieldName,fileName);
+		utils.fillFieldWithStoredValue(fieldName,fileName);
 	}
 	
 	
@@ -252,38 +213,30 @@ public class GenericSteps
 		utils.storeAttributeValueForImmediateUse(elementLocator,attributeName);
 	}
 
-	@Then("^I click field \"([^\"]*)\" and fill in \"([^\"]*)\" with \"([^\"]*)\"$")
-	public void i_click_field_and_fill_in_with(String editField, String inputField, String value) throws Throwable 
-	{
-		utils.clickFieldAndFillInWith(editField,inputField,value);
-	}
-
+	/*
 	@When("^I fill in date field \"([^\"]*)\" with System date plus (\\d+) days without time$")
 	public void i_fill_in_date_field_with_System_date_plus_days_without_time(String fieldName, int noOfDays) throws Throwable 
 	{
 		utils.fillInDateFieldWithDelaysFromSysdate(fieldName,noOfDays);
 	}
+	*/
 	
-	@Then("^delete button is enabled for \"([^\"]*)\"$")
-	public void delete_button_is_enabled_for(String appletName) throws Throwable 
-	{
-		Assert.assertFalse(utils.verifyDeleteOptionIsDisabledFor(appletName));
-	}
-	
-	@Then("^I Should not able to Create \"([^\"]*)\"$")
+/*	@Then("^I Should not able to Create \"([^\"]*)\"$")
 	public void i_Should_not_able_to_Create(String appletName) throws Throwable 
 	{
 		Assert.assertTrue(utils.newRecordCreationIsDissabled(appletName));
-	}
+	}*/
 	
+	/*
 	@When("^I fill in date field \"([^\"]*)\" with System date plus (\\d+) days with time$")
 	public void i_fill_in_date_field_with_System_date_plus_days_with_time(String fieldName, int noOfDays) throws Throwable 
 	{
 		utils.fillInDateFieldWithDelaysFromSysdateWithTime(fieldName,noOfDays);
 	}
-
-	@Then("^SRM field \"([^\"]*)\" attribute \"([^\"]*)\" should contain stored \"([^\"]*)\"$")
-	public void srm_field_attribute_should_contain_stored(String element, String attribute, String fileName) throws Throwable 
+	*/
+	
+	@Then("^Field \"([^\"]*)\" attribute \"([^\"]*)\" should contain stored \"([^\"]*)\"$")
+	public void field_attribute_should_contain_stored(String element, String attribute, String fileName) throws Throwable 
 	{
 		Assert.assertTrue(utils.verifyElementHasSpecifiedAttributeStoredValue(element,attribute,fileName));
 	}
@@ -294,29 +247,18 @@ public class GenericSteps
 		Assert.assertTrue("Element: " + elementName + " is visible", utils.verifyElementIsNotVisible(elementName));
 	}
 	
-	@When("^I create complaint using applet by clicking \"([^\"]*)\"$")
-	public void i_create_complaint_using_applet_by_clicking(String locator, DataTable inputData) throws Throwable 
-	{
-		utils.createComplaintUsingAppletByClicking(locator, inputData);
-	}
-	
-	@Then("^I enter gad date for given field \"([^\"]*)\"$")
-	public void i_enter_gad_date_for_given_field(String locator) throws Throwable 
-	{
-	    utils.enterGADDateForField(locator);
-	}
-
-	@When("^I should see following values \"([^\"]*)\" in available columns$")
+	/*@When("^I should see following values \"([^\"]*)\" in available columns$")
 	public void i_should_see_following_values_in_available_columns(String options) throws Throwable 
 	{
 		Assert.assertTrue(utils.verifyOptionsInAvailableCoulmns(options));
-	}
+	}*/
 
-	@When("^I move these values to Selected Columns \"([^\"]*)\" from available columns$")
+	
+	/*@When("^I move these values to Selected Columns \"([^\"]*)\" from available columns$")
 	public void i_move_these_values_to_Selected_Columns_from_available_columns(String options) throws Throwable 
 	{
 		utils.moveOptionsToSelectedColumns(options);
-	}
+	}*/
 
 	@Then("^I should click element \"([^\"]*)\" within menu \"([^\"]*)\"$")
 	public void i_should_click_element_within_menu(String elementName, String menuName) throws Throwable 
@@ -343,18 +285,21 @@ public class GenericSteps
 		Assert.assertTrue(utils.verifyAllFieldsHasExpectedValues(inputData));
 	}
 	
+	/*
 	@Then("^date field \"([^\"]*)\" should contain System date minus (\\d+) days without time$")
 	public void date_field_should_contain_System_date_minus_days_without_time(String locator, int delay) throws Throwable 
 	{
 		Assert.assertTrue(utils.dateDifferenceShouldBe(locator,delay));
 	}
 	
+	
 	@Then("^I reset to defaults$")
 	public void i_reset_to_defaults() throws Throwable 
 	{
 		utils.resetDisplayColumnSelectionOption();
 	}
-
+	*/
+	
 	@When("^I fill in field using xpath \"([^\"]*)\" with \"([^\"]*)\"$")
 	public void i_fill_in_field_using_xpath_with(String xPath, String value) throws Throwable 
 	{
@@ -367,11 +312,13 @@ public class GenericSteps
 		utils.selectValueFromSelectionPickerUsingFilter(fieldLocator,filterType,value);
 	}
 	
+	/*
 	@Then("^I fill in date field \"([^\"]*)\" with System date minus (\\d+) days without time$")
 	public void i_fill_in_date_field_with_System_date_minus_days_without_time(String locator, int dateDiff) throws Throwable 
 	{
 		utils.fillInDateFieldWithDelaysFromSysdate(locator, -dateDiff);
 	}
+	*/
 	
 	@When("^I enter multiple selection field \"([^\"]*)\" filter \"([^\"]*)\" with \"([^\"]*)\" and add \"([^\"]*)\"$")
 	public void i_enter_multiple_selection_field_filter_with_and_add(String locator, String filterType, String value, String option) throws Throwable 
@@ -385,12 +332,13 @@ public class GenericSteps
 		utils.selectValueFromSelectionPickerWithoutUsingFilter(fieldLocator,field,value);
 	}
 	
+	/*
 	@Then("^I fill in date field \"([^\"]*)\" with System date minus (\\d+) days with time$")
 	public void i_fill_in_date_field_with_System_date_minus_days_with_time(String locator, int delay) throws Throwable 
 	{
 		utils.fillInDateFieldWithDelaysFromSysdateWithTime(locator, -delay);
 	}
-
+*/
 	@Then("^I validate the popup test contains \"([^\"]*)\"$")
 	public void i_validate_the_popup_test_contains(String message) throws Throwable 
 	{
